@@ -2,7 +2,7 @@ openapi: 3.1.0
 info:
   title: RTF Manuell BFF API
   version: 1.0.0
-  description: API mellan rtf-manuell-fe och rtf-manuell-bff för manuell kontroll av rätt till försäkring
+  description: RTF manuell BFF — API för manuell kontroll av rätt till försäkring
 
 paths:
   /api/task/{handlaggningId}:
@@ -19,9 +19,15 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetTaskResponse"
-        "4XX":
+        "400":
           $ref: "#/components/responses/Error"
-        "5XX":
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+        "500":
+          $ref: "#/components/responses/Error"
+        "503":
           $ref: "#/components/responses/Error"
 
   /api/{handlaggningId}/patchErsattningar:
@@ -40,9 +46,15 @@ paths:
       responses:
         "204":
           description: Ersättningar sparade och uppgiften slutförd
-        "4XX":
+        "400":
           $ref: "#/components/responses/Error"
-        "5XX":
+        "403":
+          $ref: "#/components/responses/Error"
+        "404":
+          $ref: "#/components/responses/Error"
+        "500":
+          $ref: "#/components/responses/Error"
+        "503":
           $ref: "#/components/responses/Error"
 
   /api/uppgiftsbeskrivning/{uppgiftstyp}:
@@ -64,9 +76,11 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/GetUppgiftsbeskrivningResponse"
-        "4XX":
+        "403":
           $ref: "#/components/responses/Error"
-        "5XX":
+        "500":
+          $ref: "#/components/responses/Error"
+        "503":
           $ref: "#/components/responses/Error"
 
 components:
@@ -117,6 +131,11 @@ components:
           $ref: "#/components/schemas/Kon"
         anstallning:
           $ref: "#/components/schemas/Anstallning"
+      required:
+        - fornamn
+        - efternamn
+        - kon
+        - anstallning
 
     Kon:
       type: string
@@ -167,6 +186,7 @@ components:
         - ersattningstyp
         - omfattning_procent
         - belopp
+        - berakningsgrund
         - from
         - tom
 
@@ -204,6 +224,8 @@ components:
       properties:
         beskrivning:
           type: string
+      required:
+        - beskrivning
 
     ErrorResponse:
       type: object
