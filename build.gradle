@@ -35,8 +35,9 @@ project("rimfrost-regel-rtf-manuell-bff-openapi-jaxrs-spec",{
 	fkOpenApi {
 		generatorName.set("jaxrs-spec")
 		// Plain fields for nullable types, and unset fields left out of responses as the spec describes them
-		additionalProperties.put("openApiNullable", "false")
-		additionalProperties.put("additionalModelTypeAnnotations", "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)")
+		// insert keeps the plugin's default options, put would replace them all
+		additionalProperties.insert("openApiNullable", "false")
+		additionalProperties.insert("additionalModelTypeAnnotations", "@com.fasterxml.jackson.annotation.JsonInclude(com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL)")
 	}
 
 	dependencies {
